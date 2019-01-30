@@ -1,4 +1,47 @@
+@normal-font-color: #e2e2e2;
+@hover-font-color:#fff;
+@tab-bg-color: #4b5155;
+
+
 .tab{
+  min-height:35px;
+  height: 35px;
+  padding: 12px 15px;
+  background-color: @tab-bg-color;
 
-
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
+
+.tab-btn{
+  color: @normal-font-color;
+  font-size: 18px;
+  text-transform: capitalize;
+
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -ms-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+.tab:before{
+  content:'';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.tab-btn:hover{
+  color: @hover-font-color;
+}
+.tab-btn:focus{
+  color: @hover-font-color;
+}
+
+.tab-btn + .tab-btn{
+  margin-left: 15px;
+  font-size: 19px;
+}
+
+

@@ -1,0 +1,49 @@
+@primary-back-color: #ffc145;
+@sub-back-color: #96cc49;
+@basic-back-color: #333;
+/*font*/
+@bright-font-color: #fff;
+@dark-font-color: #333;
+@white: #fff;
+.btn{
+  display: inline-block;
+  padding: 10px 15px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  outline:none;
+  background-color: @basic-back-color;
+  color: @bright-font-color;
+  border:1px solid transparent;
+  font-size: 17px;
+
+  cursor: pointer;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -ms-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+
+/*add btn*/
+.btn-add{
+  background-color: @primary-back-color;
+  color: @bright-font-color;
+}
+.btn-add:hover{
+  background-color: @primary-back-color -20;
+  color: @white;
+}
+/*edit btn*/
+.btn-edit{
+  background-color: @sub-back-color;
+  color: @bright-font-color;
+}
+
+.btn-edit:hover{
+  background-color: @sub-back-color -20;
+  color: @white;
+}
+
+
+/*User*/
