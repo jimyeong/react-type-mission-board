@@ -5,9 +5,9 @@ class Tab extends React.Component{
 
     public render(){
         return(
-            <div className="Tab">
-                <Link to="/user"> User </Link>
-                <Link to="/map"> Map </Link>
+            <div className="tab">
+                <Link className="tab-btn" to="/user"> User </Link>
+                <Link className="tab-btn" to="/map"> Map </Link>
             </div>
         )
     }

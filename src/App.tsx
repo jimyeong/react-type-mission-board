@@ -4,6 +4,8 @@ import Tab from './assets/components/tabs/Tab';
 import Map from './assets/components/map/Map';
 import Users from './assets/components/users/Users';
 
+import './assets/less/base.less';
+
 interface Props{
 
 }
