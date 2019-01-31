@@ -1,12 +1,15 @@
 import * as React from 'react';
 import './btns.less';
-
-class AddBtn extends React.Component{
+interface BtnProps{
+    btnName: string;
+}
+class AddBtn extends React.Component<BtnProps> {
 
     public render(){
         return(
-            <button className="btn btn-add">
-                add
+
+            <button type="submit" className="btn btn-add">
+                {this.props.btnName}
             </button>
         )
     }

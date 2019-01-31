@@ -1,11 +1,12 @@
 @primary-back-color: #ffc145;
 @sub-back-color: #96cc49;
 @basic-back-color: #333;
-@dark-content-color: rgba(0,0,0,0.8);
 /*font*/
 @bright-font-color: #fff;
 @dark-font-color: #333;
 @white: #fff;
+
+
 .btn{
   display: inline-block;
   padding: 10px 15px;
@@ -27,65 +28,88 @@
 }
 
 /*add btn*/
-.btn-add{
+.btn-add, .btn-phone{
   background-color: @primary-back-color;
   color: @bright-font-color;
 }
-.btn-add:hover{
+.btn-add:hover, .btn-phone:hover{
   background-color: @primary-back-color -20;
   color: @white;
 }
 /*edit btn*/
-.btn-edit{
+.btn-edit, .btn-account{
   background-color: @sub-back-color;
   color: @bright-font-color;
 }
 
-.btn-edit:hover{
+.btn-edit:hover, .btn-account:hover{
   background-color: @sub-back-color -20;
   color: @white;
 }
 
-/*close btn*/
-.btn-close{
-  position: absolute;
-  left: 100%;
+
+.modal{
+  position: fixed;
+  left: 0;
+  right: 0;
   top: 0;
-  width: 40px;
-  height: 40px;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 2000;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border:1px solid #eee;
-  background-color: transparent;
-  cursor: pointer;
 }
-
-.close-stick{
-  width: 2px;
-  height: 18px;
-  display: inline-block;
-  background-color: #eee;
-}
-.close-stick:first-child{
+.modal-inner{
+  text-align: center;
   position: relative;
-  top: 1px;
-  left: 1px;
-  -webkit-transform: rotate(-40deg);
-  -moz-transform: rotate(-40deg);
-  -ms-transform: rotate(-40deg);
-  -o-transform: rotate(-40deg);
-  transform: rotate(-40deg);
+  left: 50%;
+  top: 50%;
+  max-width: 550px;
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  -o-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  padding: 30px;
+  background-color: #fff;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-.close-stick:last-child{
-  -webkit-transform: rotate(40deg);
-  -moz-transform: rotate(40deg);
-  -ms-transform: rotate(40deg);
-  -o-transform: rotate(40deg);
-  transform: rotate(40deg);
+
+/*class controll*/
+.Users{
+  .modal-edit{
+    display: none;
+  }
+  &.is-editing{
+    .modal-edit{
+      display: block;
+    }
+  }
 }
 
 
+
+
+.modal-edit{
+  .modal-tit{
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: rgba(0,0,0,0.6);
+  }
+  .btn{
+    width: 100%;
+    display: block;
+  }
+  .btn + .btn{
+    margin-top: 20px;
+  }
+}
 
 

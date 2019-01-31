@@ -6,7 +6,7 @@ class Input extends React.Component{
         return(
             <div className="input-wrap">
                 <input className="input-ctrl" type="text" placeholder="add your name"/>
-                <button className="btn">your button</button>
+                <button type="submit" className="btn">your button</button>
             </div>
         )
     }

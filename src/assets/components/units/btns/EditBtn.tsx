@@ -1,11 +1,20 @@
 import * as React from 'react';
 import './btns.less';
 
-class EditBtn extends React.Component{
+interface EditBtnProps{
+    changeEditState(): void;
+}
+
+class EditBtn extends React.Component<EditBtnProps> {
+    editInfo = (e: React.MouseEvent):void => {
+        e.preventDefault();
+        this.props.changeEditState();
+    };
 
     public render(){
         return(
-            <button className="btn btn-edit">
+            <button onClick={this.editInfo}
+                className="btn btn-edit">
                 edit
             </button>
         )
