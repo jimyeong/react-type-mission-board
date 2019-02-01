@@ -7,6 +7,12 @@ import './user.less';
 
 declare var daum:any;
 
+
+interface ILatLng{
+    lat: number;
+    lng: number;
+}
+
 interface IUserItemData{
     id: number;
     userName: string;
@@ -18,10 +24,11 @@ interface IUserState{
     isEditing: boolean;
 }
 
+
 class Users extends React.Component<any, IUserState> {
 
-    id:number = 0;
-    state: IUserState = {
+    id: number = 0;
+    state: IUserState={
         userItemData: [],
         isEditing: false
     };
@@ -44,50 +51,40 @@ class Users extends React.Component<any, IUserState> {
             userItemData: userItemData
         })
     };
+    getLatLng = (lat: number,lng: number): void  => {
 
-    setMap = (): void => {
-        var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-        var options = { //지도를 생성할 때 필요한 기본 옵션
-            center: new daum.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-            level: 3 //지도의 레벨(확대, 축소 정도)
+        const latitude: number = lat;
+        const longitude: number = lng;
+
+        let getCurrentLatLng: ILatLng={
+            lat: latitude,
+            lng: longitude
         };
 
-        var map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+        console.log(getCurrentLatLng);
     };
 
-    addMapListener = () =>{
-        daum.maps.event.addListener(map, 'click', function(mouseEvent) {
+    componentDidMount() {
 
-            // 클릭한 위도, 경도 정보를 가져옵니다
-            var latlng = mouseEvent.latLng;
+    }
 
-            // 마커 위치를 클릭한 위치로 옮깁니다
-            marker.setPosition(latlng);
-
-            var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-            message += '경도는 ' + latlng.getLng() + ' 입니다';
-
-            var resultDiv = document.getElementById('clickLatlng');
-            resultDiv.innerHTML = message;
-
-        });
-    };
 
     public render(){
         console.log( this.state.userItemData);
+
         return(
             <div className="Users">
                 <Switch>
                     <Route path="/user" render={ () => <GetUserInfo
+                        getLatLng={this.getLatLng.bind(this)}
                         createUserInfo={this.createUserInfo.bind(this)}
-                        setMap={this.setMap.bind(this)}
                     /> }/>
                     <Route path="/map" render={ () => <Map
-                        setMap={this.setMap.bind(this)}
                     /> }/>
                     <Route render={() => <GetUserInfo
+                        getLatLng={this.getLatLng.bind(this)}
                         createUserInfo={this.createUserInfo.bind(this)}
-                        setMap={this.setMap.bind(this)}
                     /> }/>
                 </Switch>
             </div>

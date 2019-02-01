@@ -2,13 +2,13 @@ import * as React from 'react';
 import './btns.less';
 interface BtnProps{
     btnName: string;
+    type: string;
 }
-class AddBtn extends React.Component<BtnProps> {
+class Btn extends React.Component<BtnProps> {
 
     public render(){
         return(
-
-            <button type="submit" className="btn btn-add">
+            <button type={this.props.type} className="btn">
                 {this.props.btnName}
             </button>
         )
@@ -16,4 +16,4 @@ class AddBtn extends React.Component<BtnProps> {
 }
 
 
-export default AddBtn;
+export default Btn;
