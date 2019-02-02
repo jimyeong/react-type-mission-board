@@ -8,10 +8,6 @@ import './user.less';
 declare var daum:any;
 
 
-interface ILatLng{
-    lat: number;
-    lng: number;
-}
 
 interface IUserItemData{
     id: number;
@@ -50,20 +46,7 @@ class Users extends React.Component<any, IUserState> {
         this.setState({
             userItemData: userItemData
         })
-    };
-    getLatLng = (lat: number,lng: number): void  => {
-
-        const latitude: number = lat;
-        const longitude: number = lng;
-
-        let getCurrentLatLng: ILatLng={
-            lat: latitude,
-            lng: longitude
-        };
-
-
-        console.log(getCurrentLatLng);
-    };
+    }
 
     componentDidMount() {
 
@@ -77,13 +60,11 @@ class Users extends React.Component<any, IUserState> {
             <div className="Users">
                 <Switch>
                     <Route path="/user" render={ () => <GetUserInfo
-                        getLatLng={this.getLatLng.bind(this)}
                         createUserInfo={this.createUserInfo.bind(this)}
                     /> }/>
                     <Route path="/map" render={ () => <Map
                     /> }/>
                     <Route render={() => <GetUserInfo
-                        getLatLng={this.getLatLng.bind(this)}
                         createUserInfo={this.createUserInfo.bind(this)}
                     /> }/>
                 </Switch>

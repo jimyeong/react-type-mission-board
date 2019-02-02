@@ -4,7 +4,6 @@ import InputPhone from '../../../units/forms/Input';
 
 interface MemberInfoProps{
     createUserInfo(name: string, phone: number): void;
-    getLatLng(lat: number, lng: number): void;
 }
 
 
