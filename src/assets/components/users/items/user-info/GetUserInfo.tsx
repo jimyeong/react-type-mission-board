@@ -44,7 +44,7 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
     isClicked: boolean = false;
     getArea: boolean = false;
     drawingFlag = false;
-    polygon: any = {};
+    polygon: any = null;
     drawingPolygon: any = {};
 
     userHouseInfo: ILatLng = {
@@ -79,7 +79,6 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
 
             this.isClicked = false;
 
-            this.polygon = null;
             this.marker.setMap(null);
         }
     };
@@ -132,19 +131,25 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
 
                 // 찍혀있는 마커가 있다면 지우기
                 this.marker.setMap(null);
+
                 if(!this.drawingFlag){
 
                     this.drawingFlag = true;
 
-                        // 그려지고 있는 다각형을 표시할 다각형을 생성하고 지도에 표시합니다
+                    if (this.polygon) {
+                        this.polygon.setMap(null);
+                        this.polygon = null;
+                    }
+
+                    // 그려지고 있는 다각형을 표시할 다각형을 생성하고 지도에 표시합니다
                         this.drawingPolygon = new daum.maps.Polygon({
                         map: this.map, // 다각형을 표시할 지도입니다
                         path: [latlng], // 다각형을 구성하는 좌표 배열입니다 클릭한 위치를 넣어줍니다
                         strokeWeight: 3, // 선의 두께입니다
-                        strokeColor: '#00a0e9', // 선의 색깔입니다
+                        strokeColor: '#332ae9', // 선의 색깔입니다
                         strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
                         strokeStyle: 'solid', // 선의 스타일입니다
-                        fillColor: '#00a0e9', // 채우기 색깔입니다
+                        fillColor: '#332ae9', // 채우기 색깔입니다
                         fillOpacity: 0.2 // 채우기 불투명도입니다
                     });
 
@@ -180,7 +185,7 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
 
                     // 다시 다각형 좌표 배열을 설정합니다
                     this.polygon.setPath(path);
-                    console.log(this.polygon)
+                    console.log('this.polygon',this.polygon)
                 }
             }
         });
@@ -243,6 +248,8 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
 
                     // 지도에 다각형을 표시합니다
                     this.polygon.setMap(this.map);
+
+
 
                 } else {
                     // 다각형을 구성하는 좌표가 2개 이하이면 다각형을 지도에 표시하지 않습니다
