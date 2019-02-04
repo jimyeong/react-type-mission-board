@@ -8,18 +8,23 @@ import './user.less';
 declare var daum:any;
 
 
+interface ILatLng{
+    lat: number | null;
+    lng: number | null;
+}
 
 interface IUserItemData{
     id: number;
     userName: string;
     phoneNumber: number;
+    latLng: ILatLng;
+    userAreaInfo: ILatLng[]
 }
 
 interface IUserState{
     userItemData: IUserItemData[];
     isEditing: boolean;
 }
-
 
 class Users extends React.Component<any, IUserState> {
 
@@ -35,23 +40,24 @@ class Users extends React.Component<any, IUserState> {
         });
     };
 
-    createUserInfo = (name: string, phone: number): void => {
+    createUserInfo = (name: string, phone: number, latLng: ILatLng, userAreaInfo: ILatLng[]): void => {
         let userItemData = this.state.userItemData;
         let getInfo: IUserItemData= {
             id: this.id++,
             userName: name,
-            phoneNumber: phone
+            phoneNumber: phone,
+            latLng: latLng,
+            userAreaInfo: userAreaInfo
         };
         userItemData = userItemData.concat(getInfo);
         this.setState({
             userItemData: userItemData
         })
-    }
+    };
 
     componentDidMount() {
 
     }
-
 
     public render(){
         console.log( this.state.userItemData);

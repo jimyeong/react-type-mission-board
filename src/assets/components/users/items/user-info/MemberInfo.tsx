@@ -2,12 +2,8 @@ import * as React from 'react';
 import InputAccount from '../../../units/forms/Input';
 import InputPhone from '../../../units/forms/Input';
 
-interface MemberInfoProps{
-    createUserInfo(name: string, phone: number): void;
-}
 
-
-class MemberInfo extends React.Component<MemberInfoProps> {
+class MemberInfo extends React.Component {
 
     public render(){
         return(

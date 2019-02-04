@@ -11,8 +11,6 @@ class Btn extends React.Component<BtnProps> {
 
     public render(){
         const {onClick} = this.props;
-        console.log(onClick);
-
         return(
             <button className="btn"
                     type={this.props.type}
