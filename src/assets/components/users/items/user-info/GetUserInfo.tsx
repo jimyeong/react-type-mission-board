@@ -1,9 +1,10 @@
 import * as React from 'react';
 import MemberInfo from './MemberInfo';
 import UserThumb from './UserThumb';
-import UserInfoMap from './UserInfoMap';
+import UserInfoMap from '../map/Map';
 import AddBtn from '../../../units/btns/Btn';
 import CalcBtn from '../../../units/btns/Btn';
+
 
 
 
@@ -11,28 +12,13 @@ declare let daum:any;
 
 interface GetUserInfoProps{
     createUserInfo(name: string, phone: number, latLng: ILatLng,  userAreaInfo: ILatLng[]): void;
+
 }
 
 interface ILatLng{
     lat: number | null;
     lng: number | null;
 }
-
-interface Ipolygon2{
-}
-interface Ipolygon{
-    fillColor: string;
-    fillOpacity: string;
-    path: ILatLng[];
-    strokeWeight: number;
-    strokeColor: string;
-    strokeStyle: string;
-    zIndex: number;
-    setPath(path: ILatLng[] ):void;
-    getPath(): ILatLng[];
-    setMap(map: any): void
-}
-
 
 class GetUserInfo extends React.Component<GetUserInfoProps> {
 
@@ -44,15 +30,18 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
     isClicked: boolean = false;
     getArea: boolean = false;
     drawingFlag = false;
-    polygon: any = null;
     drawingPolygon: any = {};
+    polygon: any = [];
+
+
 
     userHouseInfo: ILatLng = {
         lat: null,
         lng: null
     };
 
-    userAreaArray: ILatLng[] = [];
+    getAreaArray: any = [];
+
     getAreaInfo = (e: React.MouseEvent): void => {
         e.preventDefault();
         this.getArea = !this.getArea;
@@ -70,16 +59,24 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
             const userName = target.userName.value;
             const userPhone = target.userPhone.value;
             const userHouse = this.userHouseInfo;
-            const userAreaInfo:ILatLng[] = this.userAreaArray;
+            const userAreaInfo:ILatLng[] = this.getAreaArray;
 
             this.props.createUserInfo(userName, userPhone, userHouse, userAreaInfo);
+
+            /*initalize*/
 
             target.userName.value = '';
             target.userPhone.value = '';
 
-            this.isClicked = false;
+            for(let i:number=0; i < this.getAreaArray.length; i++){
+                this.getAreaArray[i].setMap(null);
+            }
+
+            this.getAreaArray =[];
 
             this.marker.setMap(null);
+
+            this.getArea = false;
         }
     };
 
@@ -95,12 +92,14 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
         this.map = new daum.maps.Map(mapObj, mapOption);
     };
 
+
     createMarker = (mapObj: any) => {
         this.marker = new daum.maps.Marker({
             // 지도 중심좌표에 마커를 생성합니다
             position: mapObj.getCenter()
         });
         daum.maps.event.addListener(mapObj, 'click', (mouseEvent: any) => {
+
         });
     };
 
@@ -136,11 +135,6 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
 
                     this.drawingFlag = true;
 
-                    if (this.polygon) {
-                        this.polygon.setMap(null);
-                        this.polygon = null;
-                    }
-
                     // 그려지고 있는 다각형을 표시할 다각형을 생성하고 지도에 표시합니다
                         this.drawingPolygon = new daum.maps.Polygon({
                         map: this.map, // 다각형을 표시할 지도입니다
@@ -153,16 +147,18 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
                         fillOpacity: 0.2 // 채우기 불투명도입니다
                     });
 
-                         // 그리기가 종료됐을때 지도에 표시할 다각형을 생성합니다
-                        this.polygon = new daum.maps.Polygon({
+
+                    // 그리기가 종료됐을때 지도에 표시할 다각형을 생성합니다
+                    this.polygon = new daum.maps.Polygon({
                         path: [latlng], // 다각형을 구성하는 좌표 배열입니다 클릭한 위치를 넣어줍니다
                         strokeWeight: 3, // 선의 두께입니다
-                        strokeColor: '#e93d38', // 선의 색깔입니다
+                        strokeColor: '#00a0e9', // 선의 색깔입니다
                         strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
                         strokeStyle: 'solid', // 선의 스타일입니다
-                        fillColor: '#e93d38', // 채우기 색깔입니다
+                        fillColor: '#00a0e9', // 채우기 색깔입니다
                         fillOpacity: 0.2 // 채우기 불투명도입니다
                     });
+
 
                 }else{
 
@@ -176,6 +172,7 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
                     // 다시 다각형 좌표 배열을 설정합니다
                     this.drawingPolygon.setPath(drawingPath);
 
+
                     // 그리기가 종료됐을때 지도에 표시할 다각형의 좌표에 클릭 위치를 추가합니다
                     // 다각형의 좌표 배열을 얻어옵니다
                     let path = this.polygon.getPath();
@@ -185,7 +182,7 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
 
                     // 다시 다각형 좌표 배열을 설정합니다
                     this.polygon.setPath(path);
-                    console.log('this.polygon',this.polygon)
+
                 }
             }
         });
@@ -215,6 +212,7 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
 
                 // 그려지고 있는 다각형의 좌표를 다시 설정합니다
                 this.drawingPolygon.setPath(path);
+
             }
         });
     };
@@ -238,18 +236,10 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
                 // 다각형을 구성하는 좌표의 개수가 3개 이상이면
                 if (path.length > 2) {
 
-                    /* form field 필요조건이 모두 충족됨*/
-
-                    this.isClicked = true;
-
-                    this.userAreaArray.push(this.polygon.getPath());
-
-                    console.log(this.userAreaArray);
+                    this.getAreaArray.push(this.polygon);
 
                     // 지도에 다각형을 표시합니다
                     this.polygon.setMap(this.map);
-
-
 
                 } else {
                     // 다각형을 구성하는 좌표가 2개 이하이면 다각형을 지도에 표시하지 않습니다
@@ -258,22 +248,19 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
 
                 // 상태를 false로, 그리지 않고 있는 상태로 변경합니다
                 this.drawingFlag = false;
+                this.isClicked = true;
+
+                console.log(this.getAreaArray)
             }
         });
 
     };
 
-    resetAllElement = () => {
-        this.mapContainer = document.getElementById('map'), // 지도를 표시할 div
-            this.mapOption = {
-                center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-                level: 3 // 지도의 확대 레벨
-            };
-    };
 
 
     componentDidMount() {
         /*create daum map instance*/
+
         this.makeMapInstance();
 
         this.renderMap(this.mapContainer,this.mapOption);
@@ -285,7 +272,6 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
         this.showPolyMove();
 
         this.stopShowPolyMove();
-
     }
 
     public render(){
@@ -297,15 +283,15 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
                     <div className="map-wrap">
                         <UserInfoMap/>
                     </div>
-                    <AddBtn
-                        btnName="add"
-                        type="submit"
-                        onClick={(e:React.MouseEvent): void => console.log('1')}
-                    />
                     <CalcBtn
                         btnName="활동반경"
                         type="button"
                         onClick={ this.getAreaInfo.bind(this) }
+                    />
+                    <AddBtn
+                        btnName="add"
+                        type="submit"
+                        onClick={(e:React.MouseEvent): void => console.log('1')}
                     />
                 </form>
             </div>

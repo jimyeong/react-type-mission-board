@@ -82,3 +82,30 @@
     margin-left: 30px;
   }
 }
+
+
+.overlay-wrap{
+  position: relative;
+  top: -110px;
+}
+.info{
+  background: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.info:after{
+  position: absolute;
+  bottom: 5px;
+  left: calc(50% - 5px);
+
+  content:'';
+  width: 10px;
+  height: 10px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background-color: #fff;
+  display: inline-block;
+}

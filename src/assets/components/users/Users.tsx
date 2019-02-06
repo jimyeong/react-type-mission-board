@@ -9,8 +9,8 @@ declare var daum:any;
 
 
 interface ILatLng{
-    lat: number | null;
-    lng: number | null;
+    lat: number;
+    lng: number;
 }
 
 interface IUserItemData{
@@ -55,9 +55,6 @@ class Users extends React.Component<any, IUserState> {
         })
     };
 
-    componentDidMount() {
-
-    }
 
     public render(){
         console.log( this.state.userItemData);
@@ -69,6 +66,7 @@ class Users extends React.Component<any, IUserState> {
                         createUserInfo={this.createUserInfo.bind(this)}
                     /> }/>
                     <Route path="/map" render={ () => <Map
+                        propsData={this.state.userItemData}
                     /> }/>
                     <Route render={() => <GetUserInfo
                         createUserInfo={this.createUserInfo.bind(this)}

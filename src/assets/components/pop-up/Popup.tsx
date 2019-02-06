@@ -4,6 +4,7 @@ import CloseBtn from '../units/btns/CloseBtn';
 
 
 
+
 interface ICloseProps{
     changeEditState(): void;
 }
