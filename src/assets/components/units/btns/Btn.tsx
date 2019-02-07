@@ -4,7 +4,8 @@ import './btns.less';
 interface BtnProps{
     btnName: string;
     type: string;
-    onClick(e:React.MouseEvent): void;
+    id: string;
+    onClick?(e:React.MouseEvent): void;
 }
 
 class Btn extends React.Component<BtnProps> {
@@ -15,7 +16,7 @@ class Btn extends React.Component<BtnProps> {
             <button className="btn"
                     type={this.props.type}
                     onClick={ onClick }
-            >
+                    id={this.props.id}>
                 {this.props.btnName}
             </button>
         )

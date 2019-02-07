@@ -34,6 +34,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
+    "@types/react-router": "^4.4.3",
     "awesome-typescript-loader": "^5.2.1",
     "babel-core": "^6.26.3",
     "babel-loader": "7",
@@ -43,6 +44,7 @@
     "less": "^3.9.0",
     "react": "16.7.0",
     "react-dom": "16.7.0",
+    "react-router": "^4.3.1",
     "style-loader": "^0.23.1",
     "typescript": "^3.2.4"
   }

@@ -4,7 +4,12 @@ import UserThumb from './UserThumb';
 import UserInfoMap from '../map/Map';
 import AddBtn from '../../../units/btns/Btn';
 import CalcBtn from '../../../units/btns/Btn';
+/*
+import {createHashHistory} from 'history';
 
+
+const history = createHashHistory();
+*/
 
 
 
@@ -41,6 +46,12 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
     };
 
     getAreaArray: any = [];
+/*
+
+    navigate = (e: any, url: string): void => {
+        history.replace(url)
+    };
+*/
 
     getAreaInfo = (e: React.MouseEvent): void => {
         e.preventDefault();
@@ -283,16 +294,20 @@ class GetUserInfo extends React.Component<GetUserInfoProps> {
                     <div className="map-wrap">
                         <UserInfoMap/>
                     </div>
-                    <CalcBtn
-                        btnName="활동반경"
-                        type="button"
-                        onClick={ this.getAreaInfo.bind(this) }
-                    />
-                    <AddBtn
-                        btnName="add"
-                        type="submit"
-                        onClick={(e:React.MouseEvent): void => console.log('1')}
-                    />
+                    <div className="btns-wrap">
+                        <CalcBtn
+                            btnName="활동반경"
+                            type="button"
+                            onClick={ this.getAreaInfo.bind(this) }
+                            id="btn-regist-ground"
+                        />
+                        <AddBtn
+                            btnName="add"
+                            type="submit"
+                            onClick={(e:React.MouseEvent): void => console.log('1')}
+                            id="btn-add-info"
+                        />
+                    </div>
                 </form>
             </div>
         )

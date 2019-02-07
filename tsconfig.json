@@ -3,6 +3,9 @@
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "jsx": "react",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "module": "commonjs",
     "noImplicitAny": true,
     "outDir": "./build/",
